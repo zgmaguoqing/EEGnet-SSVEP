@@ -84,7 +84,7 @@ numParams = model.count_params()
 
 # set a valid path for your system to record model checkpoints
 checkpointer = ModelCheckpoint(filepath='./tmp/checkpoint.h5', verbose=1,
-                               save_best_only=True)
+                               save_best_only=False)
 
 ###############################################################################
 # if the classification task was imbalanced (significantly more trials in one
@@ -105,7 +105,7 @@ class_weights = {0: 1, 1: 1, 2: 1, 3: 1}
 # fittedModel = model.fit(X_train, Y_train, batch_size=16, epochs=300,
 #                         verbose=2, validation_data=(X_validate, Y_validate),
 #                         callbacks=[checkpointer], class_weight=class_weights)
-fittedModel = model.fit(X_train, Y_train, batch_size=16, epochs=30,
+fittedModel = model.fit(X_train, Y_train, batch_size=16, epochs=100,
                         verbose=2, callbacks=[checkpointer])
 
 # load optimal weights
