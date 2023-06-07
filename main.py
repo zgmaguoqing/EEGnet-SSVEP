@@ -18,6 +18,7 @@ from tensorflow.keras import backend as K
 # from pyriemann.utils.viz import plot_confusion_matrix
 from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import KFold
 
 # tools for plotting confusion matrices
 from matplotlib import pyplot as plt
@@ -42,6 +43,31 @@ X = EEG_data  # [6, 40, 64, 1500]
 y = np.array(list(range(num_trials)) * num_blocks).reshape(num_blocks, -1)   # [6, 40]
 
 # train/validate/test
+trainX = []
+testX = []
+trainY = []
+trainY = []
+acc_list = []
+def cross_validation(X,y):
+  KF = KFold(n_splits=6, shuffle=True, random=100)
+  for index, (train_index, test_index) in enumerate(KF.split(X,y)):
+        X_train, Y_train = X[train_index,...], y[train_index,...]
+        X_test, Y_test = X[test_index,...], y[train_index,...]
+        trainX.append(X_train)
+        trainY.append(Y_train)
+        testX.append(X_test)
+        testY.append(Y_test)
+  return np.array(trainX), np.array(trainY), np.array(testX), np.array(testY)
+
+ for i in index:{
+   
+            print("fold-" + str(i + 1) + "mean acc: {}".format(np.mean(acc)))
+          
+        }
+
+acc_list.append(np.mean(acc))
+print("mean acc: {}".format(np.mean(acc_list)))
+  
 X_train = X[:5, ...].reshape(-1, chans, samples)
 Y_train = y[:5, ...].reshape(-1)
 # X_validate = X[144:216, ]
