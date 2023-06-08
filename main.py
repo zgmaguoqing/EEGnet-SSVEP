@@ -155,6 +155,16 @@ preds = probs.argmax(axis=-1)
 acc = np.mean(preds == Y_test.argmax(axis=-1))
 print("Classification accuracy: %f " % (acc))
 
+# plot the accuracy and loss graph
+plt.plot(fittedModel.history['accuracy'])
+plt.plot(fittedModel.history['val_accuracy'])
+plt.plot(fittedModel.history['loss'])
+plt.plot(fittedModel.history['val_loss'])
+plt.title('acc & loss')
+plt.xlabel('epoch')
+plt.legend(['acc', 'val_acc','loss','val_loss'], loc='upper right')
+plt.show()
+
 '''
 ############################# PyRiemann Portion ##############################
 
